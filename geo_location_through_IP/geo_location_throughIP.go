@@ -12,7 +12,7 @@ type GeoLocation struct {
 	Region  string `json:"regionName"`
 }
 
-func getlocation(ip string) (string, error) {
+func Getlocation(ip string) (string, error) {
 	client := &http.Client{
 		// fetch is a built in function in nodejs but in golang we have to create a client to make http requests and set the timeout for the request
 
