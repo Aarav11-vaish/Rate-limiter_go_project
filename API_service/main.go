@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
- "github.com/Aarav11-vaish/Rate-limiter_go_project/geo_location_through_IP"	
+ geo "github.com/Aarav11-vaish/Rate-limiter_go_project/geo_location_through_IP"	
  "github.com/labstack/echo/v4"
 )
 
@@ -21,7 +21,7 @@ func main() {
 		ip := c.RealIP()
 		// get the region and country of the ip address
 
-		data, err = Getlocation(ip)
+		data, err := geo.Getlocation(ip)
 		if err != nil {
 			return c.String(500, "Error getting location")
 		}
