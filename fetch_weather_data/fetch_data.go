@@ -25,7 +25,7 @@ type WeatherResponse struct {
 	Temperature float64 `json:"temperature"`
 	Description string  `json:"description"`
 }
-
+//what if i don;t set json: city? ans : If you don't set the json tag for the City field in the WeatherResponse struct, the JSON key for that field will default to "City" (with an uppercase "C"). This means that when you marshal or unmarshal JSON data, it will look for a key named "City" instead of "city". If your API response uses "city" as the key, then the City field in your struct will not be populated correctly when unmarshaling the JSON data. To ensure that the City field is correctly mapped to the "city" key in the JSON response, you should include the json tag like this: `json:"city"`.
 func fetchFromAPI(city string, apiKey string) ([]byte, error) {
 	url := fmt.Sprintf(
 		"https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=metric",
@@ -37,7 +37,7 @@ func fetchFromAPI(city string, apiKey string) ([]byte, error) {
 	}
 	fmt.Println("Constructed URL:", url)
 	// what will url consist of ? ans: The url variable will consist of a formatted string that includes the city name and the API key. It will look something like this: "https://api.openweathermap.org/data/2.5/weather?q=CityName&appid=YourAPIKey&units=metric". The actual values for CityName and YourAPIKey will be replaced with the values passed to the function when it is called.
-	data, err := http.Get(url)
+	data, err := http.Get(url)// use echo instead
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch data from API: %v", err)
 	}
@@ -53,9 +53,9 @@ func fetchFromAPI(city string, apiKey string) ([]byte, error) {
 
 func FetchWeatherData(city string) (*WeatherResponse, error) {
 	apiKey := os.Getenv("API_KEY") // Load the API key from environment variable
-if apiKey == "" {
-        return nil, fmt.Errorf("API_KEY environment variable not set")
-    }
+	if apiKey == "" {
+		return nil, fmt.Errorf("API_KEY environment variable not set")
+	}
 	//what does sprintf do ? ans: fmt.Sprintf is a function in the fmt package that formats a string according to a format specifier and returns the resulting string. It works similarly to printf, but instead of printing the formatted string to standard output, it returns it as a string value. In this case, we use fmt.Sprintf to construct the URL for the API request by inserting the city name and API key into the URL template.
 
 	data, err := fetchFromAPI(city, apiKey)
